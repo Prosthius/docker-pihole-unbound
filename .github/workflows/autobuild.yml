@@ -33,6 +33,9 @@ jobs:
         type: "stable"
       run: echo release=$(curl --silent "https://api.github.com/repos/Prosthius/docker-pihole-unbound/releases/latest" | jq -r '.tag_name' ) >> $GITHUB_OUTPUT
 
+    - name: Testing
+      run: ls $GITHUB_OUTPUT
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
       if: ${{ steps.latest_release.outputs.release != steps.previous_release.outputs.release }}

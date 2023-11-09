@@ -23,9 +23,7 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         repository: "pi-hole/docker-pi-hole"
         type: "stable"
-      run: |
-        echo release=$(curl --silent "https://api.github.com/repos/pi-hole/docker-pi-hole/releases/latest" | jq -r '.tag_name') >> $GITHUB_OUTPUT
-        ls $GITHUB_OUTPUT
+      run: echo release=$(curl --silent "https://api.github.com/repos/pi-hole/docker-pi-hole/releases/latest" | jq -r '.tag_name') >> $GITHUB_OUTPUT
       
     - name: Get previous release tag
       id: previous_release
@@ -36,7 +34,7 @@ jobs:
       run: echo release=$(curl --silent "https://api.github.com/repos/Prosthius/docker-pihole-unbound/releases/latest" | jq -r '.tag_name' ) >> $GITHUB_OUTPUT
 
     - name: Testing
-      run: ls $GITHUB_OUTPUT
+      run: ls ${{ steps.latest_release.outputs.release }}
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2

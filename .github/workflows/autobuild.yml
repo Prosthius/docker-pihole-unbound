@@ -33,14 +33,14 @@ jobs:
         type: "stable"
       run: echo release=$(curl --silent "https://api.github.com/repos/Prosthius/docker-pihole-unbound/releases/latest" | jq -r '.tag_name' ) >> $GITHUB_OUTPUT
 
-     # - name: Testing
-      # run: |
-        # echo "Latest: " ${{ steps.latest_release.outputs.release }}
-        # echo "Previous: " ${{ steps.previous_release.outputs.release }}
+    - name: Testing
+      run: |
+        echo "Latest: " ${{ steps.latest_release.outputs.release }}
+        echo "Previous: " ${{ steps.previous_release.outputs.release }}
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
-      if: ${{ steps.latest_release.outputs.release != steps.previous_release.outputs.release }}
+      # if: ${{ steps.latest_release.outputs.release != steps.previous_release.outputs.release }}
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
